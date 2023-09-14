@@ -1,0 +1,102 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: var(--slate-2);
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--slate-4);
+}
+
+.CheckboxGroup {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.CheckboxRoot {
+  display: flex;
+  background-color: var(--blue-1);
+  border: 1px solid var(--slate-7);
+  min-width: 28px;
+  min-height: 28px;
+  max-width: 28px;
+  max-height: 28px;
+  padding: 0;
+  /* margin: 10px 16px 10px 10px; */
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+}
+.CheckboxRoot:hover {
+  border: 1px solid var(--blue-8);
+}
+.CheckboxRoot:focus {
+  box-shadow: 0 0 0 2px var(--blue-7);
+}
+
+.CheckboxRoot:focus-visible {
+  outline-color: var(--blue-7);
+}
+
+.CheckboxRoot[data-state="checked"] {
+  box-shadow: 0 2px 10px var(--slate-7);
+}
+
+.CheckboxIndicator {
+  color: var(--blue-11);
+  width: 28px;
+  height: 28px;
+  box-sizing: content-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.ListItem {
+  display: flex;
+  padding: 8px 16px;
+  gap: 8px;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid var(--slate-3);
+  border-radius: 8px;
+}
+
+.ListItem.Active {
+  background-color: white;
+}
+
+.Input {
+  display: flex;
+  align-items: center;
+  color: var(--slate-12);
+  font-size: 1.125rem;
+  line-height: 1;
+  width: 100%;
+  height: 40px;
+  border: none;
+  padding: 0 12px;
+}
+
+.Delete {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 1px solid var(--slate-4);
+  border-radius: 100%;
+}
+
+.Delete > svg {
+  color: var(--slate-9);
+}
+
+.Delete:hover {
+  background-color: var(--slate-2);
+}
+
+.Delete:hover > svg {
+  color: red;
+}

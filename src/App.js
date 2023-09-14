@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from "react";
+import "./App.css";
+
+import Standup from "./components/Standup";
+
+const initialTime = 60;
+const initialParticipants = [
+  { id: crypto.randomUUID(), name: "John", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Fred", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Hans", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Anne", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Tonny", avatar: "...", selected: true },
+];
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Daily Standup</h1>
+      <Standup
+        initialParticipants={initialParticipants}
+        initialTime={initialTime}
+      />
     </div>
   );
 }

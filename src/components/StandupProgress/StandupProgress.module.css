@@ -1,0 +1,27 @@
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--slate-4);
+  background-color: var(--slate-2);
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.Divider {
+  height: 1px;
+  background-color: var(--slate-4);
+  margin: 0 -16px;
+}
+
+.Finished {
+  text-decoration: line-through;
+  color: var(--slate-8);
+}
