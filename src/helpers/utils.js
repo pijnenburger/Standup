@@ -6,3 +6,7 @@ export function shuffleArray(array) {
   }
   return array;
 }
+
+export function generateParticipant(value) {
+  return { id: crypto.randomUUID(), name: value, selected: true };
+}

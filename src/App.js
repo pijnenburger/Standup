@@ -2,67 +2,42 @@
 import React from "react";
 import "./App.css";
 import { useCookies } from "react-cookie";
-
 import Standup from "./components/Standup";
+import { ResetIcon } from "@radix-ui/react-icons";
+import { generateParticipant } from "./helpers/utils";
 
 const initialTime = 60;
 const initialParticipants = [
-  {
-    id: crypto.randomUUID(),
-    name: "Maria",
-    selected: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Pablo",
-    selected: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Timon",
-    selected: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Mikel",
-    selected: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Franco",
-    selected: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Amin",
-    selected: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Michiel",
-    selected: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Favio",
-    selected: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Rick",
-    selected: true,
-  },
-];
+  "Maria",
+  "Pablo",
+  "Timon",
+  "Mikel",
+  "Franco",
+  "Amin",
+  "Michiel",
+  "Favio",
+  "Rick",
+].map(generateParticipant);
 
 function App() {
-  const [cookies, setCookie] = useCookies(["saved-participants"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["saved-participants"]);
   const savedParticipants = cookies["saved-participants"];
   const defaultParticipants = savedParticipants || initialParticipants;
 
   return (
     <div className="App">
       <header>
-        <h1>Daily Standup</h1>
+        <div className="headerContainer">
+          <h1>Daily Standup</h1>
+          <button
+            onClick={() => {
+              removeCookie(["saved-participants"]);
+              window.location.reload();
+            }}
+          >
+            <ResetIcon color="var(--slate-10)" width="24" height="24" />
+          </button>
+        </div>
       </header>
       <main>
         <Standup

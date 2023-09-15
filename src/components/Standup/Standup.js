@@ -24,7 +24,6 @@ function Standup({ initialParticipants, initialTime, setCookie }) {
 
   // Function to start the standup
   const startStandup = () => {
-    setCookie("saved-participants", participants, { expires: expirationDate });
     const selectedParticipants = participants.filter(
       (participant) => participant.selected && participant.name !== ""
     );
@@ -70,24 +69,30 @@ function Standup({ initialParticipants, initialTime, setCookie }) {
     }
   };
 
-  // Function to toggle participant selection
-  const toggleParticipantSelection = (id) => {
-    setParticipants((prevParticipants) =>
-      prevParticipants.map((participant) =>
-        participant.id === id
-          ? { ...participant, selected: !participant.selected }
-          : participant
-      )
-    );
+  const updateCookies = (value) => {
+    setCookie("saved-participants", value, {
+      expires: expirationDate,
+    });
   };
 
-  // Function to toggle participant selection
-  const handleParticipantChange = ({ id, value }) => {
-    setParticipants((prevParticipants) =>
-      prevParticipants.map((participant) =>
-        participant.id === id ? { ...participant, name: value } : participant
-      )
+  // Function to handle participant selected-state
+  const toggleParticipantSelection = (id) => {
+    const updatedParticipants = participants.map((participant) =>
+      participant.id === id
+        ? { ...participant, selected: !participant.selected }
+        : participant
     );
+    setParticipants(updatedParticipants);
+    updateCookies(updatedParticipants);
+  };
+
+  // Function to handle participant name
+  const handleParticipantChange = ({ id, value }) => {
+    const updatedParticipants = participants.map((participant) =>
+      participant.id === id ? { ...participant, name: value } : participant
+    );
+    setParticipants(updatedParticipants);
+    updateCookies(updatedParticipants);
   };
 
   // Function to handle the timer tick
@@ -134,6 +139,7 @@ function Standup({ initialParticipants, initialTime, setCookie }) {
           onCheckbox={toggleParticipantSelection}
           onInputChange={handleParticipantChange}
           onStart={startStandup}
+          updateCookies={updateCookies}
         />
       );
 

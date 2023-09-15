@@ -1,10 +1,10 @@
 import React from "react";
+import styles from "./ParticipantSelector.module.css";
+import clsx from "clsx";
+import { generateParticipant } from "../../helpers/utils";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon, PlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import Button from "../Button";
-import clsx from "clsx";
-
-import styles from "./ParticipantSelector.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 
 function ParticipantSelector({
@@ -13,6 +13,7 @@ function ParticipantSelector({
   onCheckbox,
   onInputChange,
   onStart,
+  updateCookies,
 }) {
   async function fetchRandomUser() {
     const response = await fetch(
@@ -29,20 +30,18 @@ function ParticipantSelector({
   const addParticipant = async () => {
     // eslint-disable-next-line no-unused-vars
     const [randomName, randomAvatar] = await fetchRandomUser();
-    const newParticipant = {
-      id: crypto.randomUUID(),
-      name: randomName,
-      selected: true,
-    };
-    setParticipants([...participants, newParticipant]);
+    const newParticipant = generateParticipant(randomName);
+    const updatedParticipants = [...participants, newParticipant];
+    setParticipants(updatedParticipants);
+    updateCookies(updatedParticipants);
   };
 
   const removeParticipant = (removedParticipant) => {
-    setParticipants((prevParticipants) =>
-      prevParticipants.filter(
-        (participant) => participant.id !== removedParticipant.id
-      )
+    const updatedParticipants = participants.filter(
+      (participant) => participant.id !== removedParticipant.id
     );
+    setParticipants(updatedParticipants);
+    updateCookies(updatedParticipants);
   };
 
   const selectedParticipants = participants.filter(
@@ -56,68 +55,70 @@ function ParticipantSelector({
         <span>{selectedParticipants.length}</span>
       </div>
       <div className={styles.Divider} />
-      <div className={styles.CheckboxGroup}>
-        <AnimatePresence mode="sync">
-          {participants.map((participant) => (
-            <motion.div
-              layout
-              className={
-                participant.selected
-                  ? clsx(styles.ListItem, styles.Active)
-                  : styles.ListItem
-              }
-              key={participant.id}
-              initial={{ scale: 1, opacity: 1 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-            >
-              <Checkbox.Root
-                className={styles.CheckboxRoot}
-                defaultChecked={participant.selected}
-                id={participant.id}
-                onCheckedChange={() => {
-                  onCheckbox(participant.id);
-                }}
+      {participants.length > 0 && (
+        <div className={styles.CheckboxGroup}>
+          <AnimatePresence mode="sync">
+            {participants.map((participant) => (
+              <motion.div
+                layout
+                className={
+                  participant.selected
+                    ? clsx(styles.ListItem, styles.Active)
+                    : styles.ListItem
+                }
+                key={participant.id}
+                initial={{ scale: 1, opacity: 1 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
               >
-                <Checkbox.Indicator className={styles.CheckboxIndicator}>
-                  <CheckIcon width="28" height="28" />
-                </Checkbox.Indicator>
-              </Checkbox.Root>
-              <input
-                type="text"
-                className={styles.Input}
-                defaultValue={participant.name}
-                disabled={!participant.selected}
-                placeholder="Fill in a name"
-                onChange={(event) => {
-                  onInputChange({
-                    id: participant.id,
-                    value: event.target.value,
-                  });
-                }}
-                style={{
-                  color: participant.selected
-                    ? "var(--slate-12)"
-                    : "var(--slate-8)",
-                }}
-              />
-              {/* <img
+                <Checkbox.Root
+                  className={styles.CheckboxRoot}
+                  defaultChecked={participant.selected}
+                  id={participant.id}
+                  onCheckedChange={() => {
+                    onCheckbox(participant.id);
+                  }}
+                >
+                  <Checkbox.Indicator className={styles.CheckboxIndicator}>
+                    <CheckIcon width="28" height="28" />
+                  </Checkbox.Indicator>
+                </Checkbox.Root>
+                <input
+                  type="text"
+                  className={styles.Input}
+                  defaultValue={participant.name}
+                  disabled={!participant.selected}
+                  placeholder="Fill in a name"
+                  onChange={(event) => {
+                    onInputChange({
+                      id: participant.id,
+                      value: event.target.value,
+                    });
+                  }}
+                  style={{
+                    color: participant.selected
+                      ? "var(--slate-12)"
+                      : "var(--slate-8)",
+                  }}
+                />
+                {/* <img
                 src={participant.avatar}
                 className={styles.Avatar}
                 alt={participant.name}
               /> */}
-              <button
-                className={styles.Delete}
-                onClick={() => {
-                  removeParticipant(participant);
-                }}
-              >
-                <TrashIcon width="20" height="20" />
-              </button>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+                <button
+                  className={styles.Delete}
+                  onClick={() => {
+                    removeParticipant(participant);
+                  }}
+                >
+                  <TrashIcon width="20" height="20" />
+                </button>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
       <Button variant="secondary" onClick={addParticipant}>
         <PlusIcon
           style={{ position: "absolute", left: "36px" }}
