@@ -24,20 +24,13 @@
   max-width: 28px;
   max-height: 28px;
   padding: 0;
-  /* margin: 10px 16px 10px 10px; */
+  cursor: pointer;
   border-radius: 4px;
   align-items: center;
   justify-content: center;
 }
 .CheckboxRoot:hover {
   border: 1px solid var(--blue-8);
-}
-.CheckboxRoot:focus {
-  box-shadow: 0 0 0 2px var(--blue-7);
-}
-
-.CheckboxRoot:focus-visible {
-  outline-color: var(--blue-7);
 }
 
 .CheckboxRoot[data-state="checked"] {
@@ -75,12 +68,21 @@
   line-height: 1;
   width: 100%;
   height: 40px;
-  border: none;
+  border: 2px solid transparent;
   padding: 0 12px;
+}
+
+.Input:hover {
+  border-bottom: 2px solid var(--slate-3);
+}
+
+.Input:disabled {
+  background-color: transparent;
 }
 
 .Delete {
   all: unset;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,4 +101,9 @@
 
 .Delete:hover > svg {
   color: red;
+}
+
+:focus {
+  outline: -webkit-focus-ring-color auto 2px;
+  outline-offset: 4px;
 }

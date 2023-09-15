@@ -6,21 +6,29 @@ import Standup from "./components/Standup";
 
 const initialTime = 60;
 const initialParticipants = [
-  { id: crypto.randomUUID(), name: "John", avatar: "...", selected: true },
-  { id: crypto.randomUUID(), name: "Fred", avatar: "...", selected: true },
-  { id: crypto.randomUUID(), name: "Hans", avatar: "...", selected: true },
-  { id: crypto.randomUUID(), name: "Anne", avatar: "...", selected: true },
-  { id: crypto.randomUUID(), name: "Tonny", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Maria", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Pablo", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Timon", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Mikel", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Franco", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Amin", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Michiel", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Favio", avatar: "...", selected: true },
+  { id: crypto.randomUUID(), name: "Rick", avatar: "...", selected: true },
 ];
 
 function App() {
   return (
     <div className="App">
-      <h1>Daily Standup</h1>
-      <Standup
-        initialParticipants={initialParticipants}
-        initialTime={initialTime}
-      />
+      <header>
+        <h1>Daily Standup</h1>
+      </header>
+      <main>
+        <Standup
+          initialParticipants={initialParticipants}
+          initialTime={initialTime}
+        />
+      </main>
     </div>
   );
 }
