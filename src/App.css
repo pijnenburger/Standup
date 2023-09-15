@@ -1,5 +1,6 @@
 @import "@radix-ui/colors/slate.css";
 @import "@radix-ui/colors/blue.css";
+@import "@radix-ui/colors/red.css";
 
 .App {
   display: block;

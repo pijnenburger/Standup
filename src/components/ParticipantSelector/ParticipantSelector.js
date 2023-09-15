@@ -14,37 +14,62 @@ function ParticipantSelector({
   onInputChange,
   onStart,
 }) {
-  const addParticipant = () => {
+  async function fetchRandomUser() {
+    const response = await fetch(
+      "https://randomuser.me/api/?nat=nl&inc=name,picture"
+    );
+    const resJson = await response.json();
+    const user = resJson.results[0];
+    const name = user.name.first;
+    const avatar = user.picture.medium;
+
+    return [name, avatar];
+  }
+
+  const addParticipant = async () => {
+    // eslint-disable-next-line no-unused-vars
+    const [randomName, randomAvatar] = await fetchRandomUser();
     const newParticipant = {
       id: crypto.randomUUID(),
-      name: "",
+      name: randomName,
       selected: true,
     };
     setParticipants([...participants, newParticipant]);
   };
 
-  const removeParticipant = (id) => {
+  const removeParticipant = (removedParticipant) => {
     setParticipants((prevParticipants) =>
-      prevParticipants.filter((participant) => participant.id !== id)
+      prevParticipants.filter(
+        (participant) => participant.id !== removedParticipant.id
+      )
     );
   };
 
+  const selectedParticipants = participants.filter(
+    (participant) => participant.selected
+  );
+
   return (
     <div className={styles.Container}>
-      <h3 className={styles.Heading}>Select Participants</h3>
+      <div className={styles.ContainerHeading}>
+        <h3 className={styles.Heading}>Select Participants</h3>
+        <span>{selectedParticipants.length}</span>
+      </div>
+      <div className={styles.Divider} />
       <div className={styles.CheckboxGroup}>
-        <AnimatePresence>
+        <AnimatePresence mode="sync">
           {participants.map((participant) => (
             <motion.div
+              layout
               className={
                 participant.selected
                   ? clsx(styles.ListItem, styles.Active)
                   : styles.ListItem
               }
               key={participant.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ scale: 1, opacity: 1 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
             >
               <Checkbox.Root
                 className={styles.CheckboxRoot}
@@ -76,14 +101,18 @@ function ParticipantSelector({
                     : "var(--slate-8)",
                 }}
               />
-              <button className={styles.Delete}>
-                <TrashIcon
-                  width="20"
-                  height="20"
-                  onClick={() => {
-                    removeParticipant(participant.id);
-                  }}
-                />
+              {/* <img
+                src={participant.avatar}
+                className={styles.Avatar}
+                alt={participant.name}
+              /> */}
+              <button
+                className={styles.Delete}
+                onClick={() => {
+                  removeParticipant(participant);
+                }}
+              >
+                <TrashIcon width="20" height="20" />
               </button>
             </motion.div>
           ))}
@@ -97,6 +126,7 @@ function ParticipantSelector({
         />
         Add new participant
       </Button>
+      <div className={styles.Divider} />
       <Button
         disabled={!participants.some((participant) => participant.selected)}
         onClick={onStart}

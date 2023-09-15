@@ -10,7 +10,10 @@ import Button from "../Button";
 
 import { shuffleArray } from "../../helpers/utils";
 
-function Standup({ initialParticipants, initialTime }) {
+const expirationDate = new Date();
+expirationDate.setDate(expirationDate.getDate() + 365); // Add one day
+
+function Standup({ initialParticipants, initialTime, setCookie }) {
   const [timer, setTimer] = useState(initialTime);
   const [standupStatus, setStandupStatus] = useState("idle");
   const [participants, setParticipants] = useState(initialParticipants);
@@ -21,11 +24,12 @@ function Standup({ initialParticipants, initialTime }) {
 
   // Function to start the standup
   const startStandup = () => {
+    setCookie("saved-participants", participants, { expires: expirationDate });
     const selectedParticipants = participants.filter(
       (participant) => participant.selected && participant.name !== ""
     );
     if (selectedParticipants.length === 0) {
-      return; // No selected participants, do nothing
+      return;
     }
 
     setFinishedParticipants([]);
