@@ -1,2 +1,2 @@
-export * from './Standup';
-export { default } from './Standup';
+export * from "./Standup";
+export { default } from "./Standup";
