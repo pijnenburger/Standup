@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./StandupProgress.module.css";
+import clsx from "clsx";
 
 function StandupProgress({ participants, finishedParticipants }) {
   const selectedParticipants = participants.filter(
@@ -9,21 +10,20 @@ function StandupProgress({ participants, finishedParticipants }) {
   return (
     <div className={styles.Container}>
       <h4>Participants left</h4>
-      <div className={styles.Divider} />
-      <ul>
+      <div className={styles.List}>
         {selectedParticipants.map((participant) => (
-          <li
+          <div
             key={participant.id}
             className={
               finishedParticipants.includes(participant)
-                ? styles.Finished
-                : styles.Upcoming
+                ? clsx(styles.ListItem, styles.Finished)
+                : styles.ListItem
             }
           >
             {participant.name}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

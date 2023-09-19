@@ -1,0 +1,27 @@
+.InputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Input {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  color: var(--slate-12);
+  font-size: 1.125rem;
+  line-height: 1;
+  width: 100%;
+  border: 1px solid var(--slate-4);
+  padding: 16px 20px;
+  border-radius: 8px;
+}
+
+.Input:hover:not(:disabled) {
+  border: 1px solid var(--slate-5);
+}
+
+.Input:disabled {
+  background-color: transparent;
+  color: var(--slate-10);
+}

@@ -8,13 +8,19 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: relative;
-  padding: 16px 24px;
+  gap: 12px;
+  padding: 12px 24px;
+  background-color: white;
   border-bottom: 1px solid var(--slate-4);
+  height: 64px;
 }
 
-.Header > h3 {
-  flex: 1;
+.Logo {
+  height: 100%;
+  width: auto;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid var(--slate-6);
 }
 
 .CountIndicator {
@@ -36,26 +42,7 @@
   flex: 1;
   overflow-y: scroll;
   padding: 24px;
-  gap: 12px;
-}
-
-.PlaceholderButton {
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  color: var(--slate-11);
-  background-color: var(--slate-3);
-  border: 1px solid var(--slate-4);
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.PlaceholderButton:hover {
-  background-color: var(--slate-4);
-  color: var(--slate-12);
+  gap: 32px;
 }
 
 .Footer {

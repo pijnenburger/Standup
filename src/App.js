@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { useCookies } from "react-cookie";
-import { generateParticipant } from "./helpers/utils";
-import { shuffleArray } from "./helpers/utils";
+import { generateParticipant, shuffleArray } from "./helpers/utils";
 
-import Standup from "./components/Standup";
+import StandupView from "./components/StandupView";
 import StandupSettings from "./components/StandupSettings";
 
 const initialTime = 60;
@@ -21,6 +20,7 @@ const initialParticipants = [
 ].map(generateParticipant);
 
 function App() {
+  // Cookies
   const [cookies, setCookie] = useCookies(["saved-participants"]);
   const savedParticipants = cookies["saved-participants"];
   const defaultParticipants = savedParticipants || initialParticipants;
@@ -32,43 +32,23 @@ function App() {
     useState(defaultParticipants);
   const [currentParticipant, setCurrentParticipant] = useState(null);
   const [finishedParticipants, setFinishedParticipants] = useState([]);
-  const [timer, setTimer] = useState(initialTime);
 
-  // Functions to manipulate participants
-  const toggleParticipantSelection = (id) => {
-    const updatedParticipants = participants.map((participant) =>
-      participant.id === id
-        ? { ...participant, selected: !participant.selected }
-        : participant
-    );
-    setParticipants(updatedParticipants);
-    updateCookies(updatedParticipants);
-  };
-
-  const handleParticipantChange = ({ id, value }) => {
-    const updatedParticipants = participants.map((participant) =>
-      participant.id === id ? { ...participant, name: value } : participant
-    );
-    setParticipants(updatedParticipants);
-    updateCookies(updatedParticipants);
-  };
+  // State related to timer
+  const [defaultTime, setDefaultTime] = useState(initialTime);
+  const [timer, setTimer] = useState(defaultTime);
 
   const startStandup = () => {
     const selectedParticipants = participants.filter(
       (participant) => participant.selected && participant.name.trim() !== ""
     );
-
     if (selectedParticipants.length === 0) {
-      // Handle the case where no participants are selected or have empty names.
       return;
     }
-
-    const shuffledPeople = shuffleArray(selectedParticipants);
-
     // Update the state variables
     setFinishedParticipants([]);
-    setTimer(initialTime);
+    setTimer(defaultTime);
     setStandupStatus("running");
+    const shuffledPeople = shuffleArray(selectedParticipants);
     setShuffledParticipants(shuffledPeople);
     setCurrentParticipant(shuffledPeople[0]);
   };
@@ -82,10 +62,10 @@ function App() {
   };
 
   const resetTimer = () => {
-    setTimer(initialTime);
+    setTimer(defaultTime);
   };
 
-  // Function to pause the standup
+  // Function to restart the standup
   const restartStandup = () => {
     setStandupStatus("idle");
     setFinishedParticipants([]);
@@ -93,6 +73,9 @@ function App() {
 
   // Function to pause the standup
   const togglePause = () => {
+    if (timer <= 0) {
+      return;
+    }
     if (standupStatus === "running") {
       setStandupStatus("pause");
     } else {
@@ -158,16 +141,15 @@ function App() {
           startStandup={startStandup}
           participants={participants}
           setParticipants={setParticipants}
+          defaultTime={defaultTime}
+          setDefaultTime={setDefaultTime}
           finishedParticipants={finishedParticipants}
-          toggleParticipantSelection={toggleParticipantSelection}
-          handleParticipantChange={handleParticipantChange}
           updateCookies={updateCookies}
         />
       </div>
       <main className="main-content">
-        <Standup
+        <StandupView
           standupStatus={standupStatus}
-          setStandupStatus={setStandupStatus}
           timer={timer}
           currentParticipant={currentParticipant}
           restartStandup={restartStandup}

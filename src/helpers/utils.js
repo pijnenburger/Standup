@@ -10,3 +10,10 @@ export function shuffleArray(array) {
 export function generateParticipant(value) {
   return { id: crypto.randomUUID(), name: value, selected: true };
 }
+export async function fetchRandomUser() {
+  const response = await fetch("https://randomuser.me/api/?nat=nl&inc=name");
+  const resJson = await response.json();
+  const user = resJson.results[0];
+  const name = user.name.first;
+  return [name];
+}

@@ -1,67 +1,25 @@
-.Container {
+.EmptyStateContainer {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: var(--slate-2);
   border: 1px solid var(--slate-4);
   border-radius: 16px;
+  max-width: 400px;
+  max-height: 400px;
 }
 
-.PrimaryView {
-  padding: 24px;
+.Illustration {
+  max-width: 240px;
+}
+
+.Content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-}
-
-.Participant {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  text-align: center;
-}
-
-.Avatar {
-  position: relative;
-  background-color: var(--slate-4);
-  border-radius: 100%;
-}
-
-.Pause {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 64px;
-  height: 64px;
-  position: absolute;
-  z-index: 10;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.Timer {
-  font-size: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.TimerCounter {
-  font-size: 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.Divider {
-  height: 1px;
-  background-color: var(--slate-4);
-}
-
-.Actions {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  gap: 16px;
-  padding: 16px;
+  gap: 4px;
+  color: var(--slate-11);
 }

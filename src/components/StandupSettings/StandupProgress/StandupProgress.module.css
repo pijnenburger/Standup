@@ -1,27 +1,34 @@
-ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 .Container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.List {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--slate-4);
-  background-color: var(--slate-2);
-  padding: 16px;
-  border-radius: 16px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.Divider {
-  height: 1px;
-  background-color: var(--slate-4);
-  margin: 0 -16px;
+.ListItem {
+  display: flex;
+  padding: 16px 16px;
+  gap: 8px;
+  align-items: center;
+  background-color: white;
 }
 
-.Finished {
+.ListItem:not(:last-child) {
+  border-bottom: 1px solid var(--slate-4);
+}
+
+.ListItem.Finished {
   text-decoration: line-through;
   color: var(--slate-8);
+  background-color: var(--slate-2);
 }

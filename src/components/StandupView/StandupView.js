@@ -1,69 +1,61 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import styles from "./StandupView.module.css";
+import ActiveParticipant from "./ActiveParticipant";
 import Button from "../Button";
-import {
-  DoubleArrowRightIcon,
-  PauseIcon,
-  PlayIcon,
-  ResetIcon,
-} from "@radix-ui/react-icons";
+import { ReactComponent as EmptyState } from "../../assets/empty_state.svg";
+
+const expirationDate = new Date();
+expirationDate.setDate(expirationDate.getDate() + 365); // Add one day
 
 function StandupView({
   standupStatus,
-  currentParticipant,
   timer,
-  onPause,
-  onNext,
-  onRestart,
+  currentParticipant,
+  restartStandup,
+  togglePause,
+  nextParticipant,
 }) {
-  return (
-    <div className={styles.Container}>
-      <div className={styles.PrimaryView}>
-        <div className={styles.Participant}>
-          {standupStatus === "pause" && (
-            <div className={styles.Pause}>
-              <PauseIcon color="white" width="44" height="44" />
-            </div>
-          )}
-          <img
-            className={styles.Avatar}
-            width="64"
-            height="64"
-            src={`https://ui-avatars.com/api/?name=${currentParticipant.name}&rounded=true`}
-            alt={currentParticipant.name}
+  switch (standupStatus) {
+    case "idle":
+      return (
+        <div className={styles.EmptyStateContainer}>
+          <EmptyState className={styles.Illustration} />
+          <div className={styles.Content}>
+            <h4>Your standup companion app</h4>
+            <p>Keep track of your randomized standup!</p>
+          </div>
+        </div>
+      );
+
+    case "running":
+    case "pause":
+      return (
+        <>
+          <ActiveParticipant
+            standupStatus={standupStatus}
+            timer={timer}
+            currentParticipant={currentParticipant}
+            onNext={nextParticipant}
+            onPause={togglePause}
+            onRestart={restartStandup}
           />
-          <h4>{currentParticipant.name}</h4>
-        </div>
-        <div className={styles.Timer}>
-          <span>Time remaining</span>
-          <span
-            className={styles.TimerCounter}
-            style={{
-              color: timer < 10 ? "red" : "var(--blue-11)",
-            }}
-          >
-            {timer === 0 ? "Time's up" : timer}
-          </span>
-        </div>
-      </div>
-      <div className={styles.Divider} />
-      <div className={styles.Actions}>
-        <Button variant="secondary" onClick={onRestart}>
-          <ResetIcon width="24" height="24" color="red" />
-        </Button>
-        <Button variant="secondary" onClick={onPause}>
-          {standupStatus === "running" ? (
-            <PauseIcon width="24" height="24" />
-          ) : (
-            <PlayIcon width="24" height="24" />
-          )}{" "}
-        </Button>
-        <Button onClick={onNext}>
-          <DoubleArrowRightIcon width="24" height="24" />
-        </Button>
-      </div>
-    </div>
-  );
+        </>
+      );
+    case "finished":
+      return (
+        <>
+          <div className={styles.Container}>
+            <h2>Finished</h2>
+            <Button variant="secondary" onClick={restartStandup}>
+              Restart
+            </Button>
+          </div>
+        </>
+      );
+    default:
+      return null;
+  }
 }
 
 export default StandupView;
