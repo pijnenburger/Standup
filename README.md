@@ -14,10 +14,11 @@ This app can support you and your team in your daily standup. It randomizes the 
 
 #### MVP
 
-- Countdown clock in mm:ss format
 - Improved UI for active standup
-- Storing time setting in cookies
 - Standup format prompts with check-functionality
+- Simplifying state into a single state for:
+  - formData / inputData
+  - appData
 
 ### Nice to have
 

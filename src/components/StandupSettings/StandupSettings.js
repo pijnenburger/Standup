@@ -11,13 +11,12 @@ function StandupSettings({
   standupStatus,
   participants,
   setParticipants,
-  defaultTime,
-  setDefaultTime,
+  timeValue,
+  setTimeValue,
   startStandup,
   updateCookies,
-  finishedParticipants,
 }) {
-  const isIdleOrFinished = ["idle", "finished"].includes(standupStatus);
+  const isIdle = standupStatus === "idle";
 
   const enableStart = participants.some(
     (participant) => participant.selected && participant.name
@@ -30,11 +29,12 @@ function StandupSettings({
         <h3>Standup</h3>
       </div>
       <div className={styles.ScrollContainer}>
-        {isIdleOrFinished ? (
+        {isIdle ? (
           <>
             <TimeSelector
-              defaultTime={defaultTime}
-              setDefaultTime={setDefaultTime}
+              timeValue={timeValue}
+              setTimeValue={setTimeValue}
+              updateCookies={updateCookies}
             />
             <ParticipantSelector
               participants={participants}
@@ -43,13 +43,10 @@ function StandupSettings({
             />
           </>
         ) : (
-          <StandupProgress
-            participants={participants}
-            finishedParticipants={finishedParticipants}
-          />
+          <StandupProgress participants={participants} />
         )}
       </div>
-      {isIdleOrFinished && (
+      {isIdle && (
         <div className={styles.Footer}>
           <Button disabled={!enableStart} onClick={startStandup}>
             Start

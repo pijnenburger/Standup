@@ -21,7 +21,7 @@ function ParticipantSelector({ participants, setParticipants, updateCookies }) {
     const newParticipant = generateParticipant("");
     const updatedParticipants = [...participants, newParticipant];
     setParticipants(updatedParticipants);
-    updateCookies(updatedParticipants);
+    updateCookies("saved-participants", updatedParticipants);
 
     setLastInputKey(newParticipant.id);
     if (inputRef.current) {
@@ -37,7 +37,7 @@ function ParticipantSelector({ participants, setParticipants, updateCookies }) {
         : participant
     );
     setParticipants(updatedParticipants);
-    updateCookies(updatedParticipants);
+    updateCookies("saved-participants", updatedParticipants);
   };
 
   const handleInputChange = ({ id, value }) => {
@@ -45,7 +45,7 @@ function ParticipantSelector({ participants, setParticipants, updateCookies }) {
       participant.id === id ? { ...participant, name: value } : participant
     );
     setParticipants(updatedParticipants);
-    updateCookies(updatedParticipants);
+    updateCookies("saved-participants", updatedParticipants);
   };
 
   const handleClearParticipants = () => {
