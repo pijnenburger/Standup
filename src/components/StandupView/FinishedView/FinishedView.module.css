@@ -1,0 +1,34 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--slate-4);
+  box-shadow: 0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
+  background-color: white;
+  border-radius: 16px;
+  width: 400px;
+  height: 400px;
+}
+
+.PrimaryView {
+  padding: 24px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.Divider {
+  height: 1px;
+  background-color: var(--slate-4);
+}
+
+.Actions {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+}

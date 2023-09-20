@@ -21,3 +21,11 @@ export async function fetchRandomUser() {
   const name = user.name.first;
   return [name];
 }
+
+export function normalizedTime(value) {
+  const estMinutes = Math.floor(value / 60);
+  const estSeconds = value % 60;
+  const normalizedValue =
+    estMinutes !== 0 ? `${estMinutes}m ${estSeconds}s` : `${estSeconds}s`;
+  return normalizedValue;
+}

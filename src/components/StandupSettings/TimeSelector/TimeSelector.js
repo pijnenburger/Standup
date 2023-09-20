@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TimeSelector.module.css";
 
-function TimeSelector({ timeValue, setTimeValue, updateCookies }) {
+function TimeSelector({ timeValue, setTimeValue, updateCookies, setTimer }) {
   return (
     <div className={styles.InputContainer}>
       <label htmlFor="time_input">Time in seconds</label>
@@ -14,6 +14,7 @@ function TimeSelector({ timeValue, setTimeValue, updateCookies }) {
         onChange={(event) => {
           const updatedTime = event.target.value;
           setTimeValue(updatedTime);
+          setTimer(updatedTime);
           updateCookies("saved-time", updatedTime);
         }}
       />

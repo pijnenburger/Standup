@@ -36,22 +36,7 @@ function App() {
 
   // State related to time settings
   const [timeValue, setTimeValue] = useState(defaultTime);
-
-  // State needed for the timer
   const [timer, setTimer] = useState(defaultTime);
-
-  // NEW
-  // Settings state
-  // const [formData, setFormData] = useState({
-  //   participants: defaultParticipants,
-  //   timeValue: defaultTime,
-  // });
-  // App state
-  // const [appData, setAppData] = useState({
-  //   standupStatus: "idle",
-  //   currentParticipant: null,
-  //   timer: defaultTime,
-  // });
 
   // Defining the selected participants
   const selectedParticipants = participants.filter(
@@ -125,7 +110,6 @@ function App() {
           ? { ...participant, finished: true }
           : participant
       );
-      console.log(updatedParticipants);
       setParticipants(updatedParticipants);
     }
   }, [currentParticipant]);
@@ -163,6 +147,7 @@ function App() {
           startStandup={startStandup}
           participants={participants}
           setParticipants={setParticipants}
+          setTimer={setTimer}
           timeValue={timeValue}
           setTimeValue={setTimeValue}
           updateCookies={updateCookies}

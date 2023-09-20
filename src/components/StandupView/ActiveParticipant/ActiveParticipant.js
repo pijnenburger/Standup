@@ -7,6 +7,7 @@ import {
   PlayIcon,
   ResetIcon,
 } from "@radix-ui/react-icons";
+import Avatar from "boring-avatars";
 
 function ParticipantInfo({ standupStatus, currentParticipant }) {
   return (
@@ -16,14 +17,14 @@ function ParticipantInfo({ standupStatus, currentParticipant }) {
           <PauseIcon color="white" width="44" height="44" />
         </div>
       )}
-      <img
-        className={styles.Avatar}
-        width="64"
-        height="64"
-        src={`https://ui-avatars.com/api/?name=${currentParticipant.name}&rounded=true`}
+      <Avatar
+        size={"100px"}
+        name={currentParticipant.name}
         alt={currentParticipant.name}
+        variant={"beam"}
+        className={styles.Avatar}
       />
-      <h4>{currentParticipant.name}</h4>
+      <h1>{currentParticipant.name}</h1>
     </div>
   );
 }
@@ -32,7 +33,7 @@ function TimerDisplay({ timer }) {
   const timerColor = timer < 10 ? "var(--red-11)" : "var(--blue-11)";
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;
-  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
+  const formattedTime = `${String(minutes).padStart(1, "0")}:${String(
     seconds
   ).padStart(2, "0")}`;
 
