@@ -1,4 +1,5 @@
 .Container {
+  position: relative;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--slate-4);
@@ -67,6 +68,20 @@
   background-color: var(--slate-4);
 }
 
+.SpecialDivider {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  text-transform: uppercase;
+  color: var(--slate-10);
+}
+
+.SpecialDivider > .Divider {
+  flex: 1;
+}
+
 .Prompts {
   display: flex;
   flex-direction: column;
@@ -79,6 +94,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .PromptLabel {
@@ -86,28 +102,42 @@
   position: relative;
   cursor: pointer;
   user-select: none;
-  color: var(--slate-11);
+  color: var(--slate-12);
   font-weight: 400;
   text-align: center;
-  width: 100%;
-  transition: all 300ms;
-  line-height: 20px;
+  width: auto;
+  font-size: 1rem;
+  line-height: 1rem;
+  transition: color 400ms ease-out;
+}
+
+.PromptLabel:hover {
+  color: var(--slate-11);
 }
 
 .Checked {
-  text-decoration: line-through;
-  font-size: 12px;
   color: var(--slate-10);
-  transition: all 300ms;
+}
+
+@keyframes lineThrough {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .Checked::before {
   content: "";
-  width: 100%;
-  background-color: red;
-  height: 1px;
-  position: absolute;
+  width: fit-content;
   left: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: var(--slate-8);
+  animation: lineThrough 400ms ease-out;
+  position: absolute;
 }
 
 .Actions {

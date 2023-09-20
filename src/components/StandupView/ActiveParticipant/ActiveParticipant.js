@@ -129,7 +129,11 @@ function ActiveParticipant({
         />
         <TimerDisplay timer={timer} />
       </div>
-      <div className={styles.Divider} />
+      <div className={styles.SpecialDivider}>
+        <div className={styles.Divider} />
+        <span>PROMPTS</span>
+        <div className={styles.Divider} />
+      </div>
       <div className={styles.SecondaryView}>
         <StandupPrompts currentParticipant={currentParticipant} />
       </div>
