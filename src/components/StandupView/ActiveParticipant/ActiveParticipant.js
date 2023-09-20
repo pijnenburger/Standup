@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ActiveParticipant.module.css";
 import Button from "../../Button";
 import {
@@ -8,6 +8,7 @@ import {
   ResetIcon,
 } from "@radix-ui/react-icons";
 import Avatar from "boring-avatars";
+import clsx from "clsx";
 
 function ParticipantInfo({ standupStatus, currentParticipant }) {
   return (
@@ -47,6 +48,70 @@ function TimerDisplay({ timer }) {
   );
 }
 
+function StandupPrompts({ currentParticipant }) {
+  const prompts = [
+    "What did you do yesterday?",
+    "What are you planning to do today?",
+    "Is anything blocking you?",
+  ];
+  const [checked, setChecked] = useState(Array(prompts.length).fill(false));
+
+  const toggleCheckbox = (index) => {
+    const newChecked = [...checked];
+    newChecked[index] = !newChecked[index];
+    setChecked(newChecked);
+  };
+
+  useEffect(() => {
+    setChecked(Array(prompts.length).fill(false));
+  }, [currentParticipant, prompts.length]);
+
+  return (
+    <div className={styles.Prompts}>
+      {prompts.map((prompt, index) => {
+        return (
+          <button
+            onClick={() => toggleCheckbox(index)}
+            className={styles.PromptContainer}
+            key={`prompt_${index}`}
+          >
+            <label
+              className={
+                checked[index]
+                  ? clsx(styles.PromptLabel, styles.Checked)
+                  : styles.PromptLabel
+              }
+              htmlFor={`prompt_${index}-${currentParticipant.id}`}
+            >
+              {prompt}
+            </label>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function Actions({ standupStatus, timer, onNext, onRestart, onPause }) {
+  return (
+    <div className={styles.Actions}>
+      <Button variant="secondary" onClick={onRestart}>
+        <ResetIcon width="24" height="24" color="red" />
+      </Button>
+      <Button disabled={timer <= 0} variant="secondary" onClick={onPause}>
+        {standupStatus === "running" ? (
+          <PauseIcon width="24" height="24" />
+        ) : (
+          <PlayIcon width="24" height="24" />
+        )}
+      </Button>
+      <Button onClick={onNext}>
+        <DoubleArrowRightIcon width="24" height="24" />
+      </Button>
+    </div>
+  );
+}
+
 function ActiveParticipant({
   standupStatus,
   currentParticipant,
@@ -65,21 +130,17 @@ function ActiveParticipant({
         <TimerDisplay timer={timer} />
       </div>
       <div className={styles.Divider} />
-      <div className={styles.Actions}>
-        <Button variant="secondary" onClick={onRestart}>
-          <ResetIcon width="24" height="24" color="red" />
-        </Button>
-        <Button disabled={timer <= 0} variant="secondary" onClick={onPause}>
-          {standupStatus === "running" ? (
-            <PauseIcon width="24" height="24" />
-          ) : (
-            <PlayIcon width="24" height="24" />
-          )}
-        </Button>
-        <Button onClick={onNext}>
-          <DoubleArrowRightIcon width="24" height="24" />
-        </Button>
+      <div className={styles.SecondaryView}>
+        <StandupPrompts currentParticipant={currentParticipant} />
       </div>
+      <div className={styles.Divider} />
+      <Actions
+        standupStatus={standupStatus}
+        timer={timer}
+        onRestart={onRestart}
+        onNext={onNext}
+        onPause={onPause}
+      />
     </div>
   );
 }

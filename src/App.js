@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import styles from "./App.module.css";
 import { useCookies } from "react-cookie";
 import { generateParticipant, shuffleArray } from "./helpers/utils";
 
@@ -47,7 +47,7 @@ function App() {
   const startStandup = () => {
     setStandupStatus("running");
     const shuffledPeople = shuffleArray(selectedParticipants);
-    setShuffledParticipants(shuffleArray(selectedParticipants));
+    setShuffledParticipants(shuffledPeople);
     setCurrentParticipant(shuffledPeople[0]);
   };
 
@@ -140,8 +140,8 @@ function App() {
   }, [timer]);
 
   return (
-    <div className="App">
-      <div className="sidebar">
+    <div className={styles.App}>
+      <div className={styles.Sidebar}>
         <StandupSettings
           standupStatus={standupStatus}
           startStandup={startStandup}
@@ -153,7 +153,7 @@ function App() {
           updateCookies={updateCookies}
         />
       </div>
-      <main className="main-content">
+      <main className={styles.MainContent}>
         <StandupView
           standupStatus={standupStatus}
           timer={timer}

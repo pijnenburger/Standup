@@ -9,7 +9,7 @@ function ActiveParticipant({ onRestart }) {
     <div className={styles.Container}>
       <div className={styles.PrimaryView}>
         <ConfettiExplosion force={0.8} duration={3000} particleCount={250} />
-        <img src={PartyPopper} height="50%" alt="standup_done" />
+        <img src={PartyPopper} height="33%" alt="standup_done" />
         <h2>Standup finished!</h2>
       </div>
       <div className={styles.Divider} />

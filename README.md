@@ -16,9 +16,8 @@ This app can support you and your team in your daily standup. It randomizes the 
 
 - Improved UI for active standup
 - Standup format prompts with check-functionality
-- Simplifying state into a single state for:
-  - formData / inputData
-  - appData
+- Cleanup a lot of CSS & UI
+- Improve mobile-view (probably moving start-button & header somewhere else)
 
 ### Nice to have
 

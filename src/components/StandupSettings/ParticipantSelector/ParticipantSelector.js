@@ -14,7 +14,7 @@ function ParticipantSelector({ participants, setParticipants, updateCookies }) {
       (participant) => participant.id !== removedParticipant.id
     );
     setParticipants(updatedParticipants);
-    updateCookies(updatedParticipants);
+    updateCookies("saved-participants", updatedParticipants);
   };
 
   const addParticipant = () => {

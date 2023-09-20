@@ -25,7 +25,12 @@ export async function fetchRandomUser() {
 export function normalizedTime(value) {
   const estMinutes = Math.floor(value / 60);
   const estSeconds = value % 60;
-  const normalizedValue =
-    estMinutes !== 0 ? `${estMinutes}m ${estSeconds}s` : `${estSeconds}s`;
+  let normalizedValue = "";
+  if (estMinutes !== 0) {
+    normalizedValue += `${estMinutes}m `;
+  }
+  if (estSeconds !== 0) {
+    normalizedValue += `${estSeconds}s`;
+  }
   return normalizedValue;
 }
