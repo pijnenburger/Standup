@@ -139,6 +139,14 @@ function App() {
     }
   }, [timer]);
 
+  const participantCount = participants.filter(
+    (participant) => participant.selected
+  ).length;
+
+  const participantsLeft = participants.filter(
+    (participant) => participant.selected && !participant.finished
+  ).length;
+
   return (
     <div className={styles.App}>
       <div className={styles.Sidebar}>
@@ -151,16 +159,20 @@ function App() {
           timeValue={timeValue}
           setTimeValue={setTimeValue}
           updateCookies={updateCookies}
+          participantCount={participantCount}
         />
       </div>
       <main className={styles.MainContent}>
         <StandupView
           standupStatus={standupStatus}
           timer={timer}
+          timeValue={timeValue}
+          startStandup={startStandup}
           currentParticipant={currentParticipant}
           restartStandup={restartStandup}
           togglePause={togglePause}
           nextParticipant={nextParticipant}
+          participantsLeft={participantsLeft}
         />
       </main>
     </div>

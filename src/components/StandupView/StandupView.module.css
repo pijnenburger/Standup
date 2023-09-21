@@ -1,46 +1,33 @@
-.EmptyStateContainer {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  background-color: var(--slate-2);
-  border: 1px solid var(--slate-4);
-  border-radius: 16px;
-  max-width: 400px;
-  max-height: 400px;
-}
-
-.Illustration {
-  max-width: 240px;
-}
-
-.Content {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: var(--slate-11);
-  text-align: center;
-}
-
-h3 {
-  color: var(--slate-12);
-}
-
 .Container {
-  display: flex;
-  gap: 24px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  position: relative;
+  width: auto;
+  margin-bottom: 80px;
+}
+
+/* Style for the stack */
+.Stack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* Style for each card */
+.Card {
+  position: absolute;
+  height: 100%;
+  width: calc(100% * var(--scale));
   border: 1px solid var(--slate-4);
-  box-shadow: 0 2px 2px hsl(0deg 0% 0% / 0.075),
-    0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
   background-color: white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   border-radius: 16px;
-  width: 400px;
-  height: 400px;
+  top: calc(8px * var(--index));
+  left: calc((100% - var(--scale) * 100%) / 2);
+  transform-origin: center center;
+}
+
+/* Set scaling factor and index */
+.Card:nth-child(n) {
+  --index: calc(var(--participantsLeft) - var(--currentIndex));
+  --scale: calc(1 - (var(--index)) * 0.1);
 }

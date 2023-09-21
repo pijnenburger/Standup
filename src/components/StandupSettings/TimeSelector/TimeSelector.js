@@ -1,10 +1,19 @@
 import React from "react";
 import styles from "./TimeSelector.module.css";
 
-function TimeSelector({ timeValue, setTimeValue, updateCookies, setTimer }) {
+function TimeSelector({
+  timeValue,
+  setTimeValue,
+  updateCookies,
+  setTimer,
+  estTime,
+}) {
   return (
     <div className={styles.InputContainer}>
-      <label htmlFor="time_input">Time per person</label>
+      <div className={styles.Heading}>
+        <label htmlFor="time_select">Time per person</label>
+        <span className={styles.HeadingData}>{estTime} total</span>
+      </div>
       <select
         className={styles.Input}
         style={{

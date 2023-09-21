@@ -6,7 +6,12 @@ import { CheckIcon, TrashIcon, PlusIcon } from "@radix-ui/react-icons";
 import { AnimatePresence, motion } from "framer-motion";
 import { generateParticipant } from "../../../helpers/utils.js";
 
-function ParticipantSelector({ participants, setParticipants, updateCookies }) {
+function ParticipantSelector({
+  participants,
+  setParticipants,
+  updateCookies,
+  participantCount,
+}) {
   const [lastInputKey, setLastInputKey] = useState(-1); // Initialize with -1
 
   const removeParticipant = (removedParticipant) => {
@@ -48,9 +53,9 @@ function ParticipantSelector({ participants, setParticipants, updateCookies }) {
     updateCookies("saved-participants", updatedParticipants);
   };
 
-  const handleClearParticipants = () => {
-    setParticipants([]);
-  };
+  // const handleClearParticipants = () => {
+  //   setParticipants([]);
+  // };
 
   const inputRef = useRef(null);
 
@@ -58,14 +63,7 @@ function ParticipantSelector({ participants, setParticipants, updateCookies }) {
     <div className={styles.Container}>
       <div className={styles.Heading}>
         <label>Participants</label>
-        {participants.length > 0 && (
-          <button
-            className={styles.ClearButton}
-            onClick={handleClearParticipants}
-          >
-            Clear
-          </button>
-        )}
+        <span className={styles.HeadingData}>{participantCount} selected</span>
       </div>
       <div className={styles.List}>
         {participants.length > 0 && (

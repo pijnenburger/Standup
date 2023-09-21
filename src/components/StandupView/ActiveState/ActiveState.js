@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import styles from "./ActiveParticipant.module.css";
-import Button from "../../Button";
+import styles from "./ActiveState.module.css";
+import clsx from "clsx";
+import Avatar from "boring-avatars";
+import IconButton from "../../IconButton/IconButton";
 import {
   DoubleArrowRightIcon,
   PauseIcon,
   PlayIcon,
   ResetIcon,
 } from "@radix-ui/react-icons";
-import Avatar from "boring-avatars";
-import clsx from "clsx";
 
 function ParticipantInfo({ standupStatus, currentParticipant }) {
   return (
     <div className={styles.Participant}>
       {standupStatus === "pause" && (
         <div className={styles.Pause}>
-          <PauseIcon color="white" width="44" height="44" />
+          <PauseIcon color="white" width="64" height="64" />
         </div>
       )}
       <Avatar
@@ -95,33 +95,56 @@ function StandupPrompts({ currentParticipant }) {
 function Actions({ standupStatus, timer, onNext, onRestart, onPause }) {
   return (
     <div className={styles.Actions}>
-      <Button variant="secondary" onClick={onRestart}>
+      {/* Reset button */}
+      <IconButton variant="secondary" onClick={onRestart} label="Reset">
         <ResetIcon width="24" height="24" color="red" />
-      </Button>
-      <Button disabled={timer <= 0} variant="secondary" onClick={onPause}>
+      </IconButton>
+      {/* Pause / play */}
+      <IconButton
+        variant="secondary"
+        onClick={onPause}
+        label={standupStatus === "running" ? "Pause" : "Resume"}
+      >
         {standupStatus === "running" ? (
           <PauseIcon width="24" height="24" />
         ) : (
           <PlayIcon width="24" height="24" />
         )}
-      </Button>
-      <Button onClick={onNext}>
+      </IconButton>
+      {/* Next */}
+      <IconButton variant="primary" onClick={onNext} label="Skip">
         <DoubleArrowRightIcon width="24" height="24" />
-      </Button>
+      </IconButton>
     </div>
   );
 }
 
-function ActiveParticipant({
+function ActiveState({
   standupStatus,
   currentParticipant,
   timer,
   onPause,
   onNext,
   onRestart,
+  timeValue,
 }) {
+  const [isAnimationRunning, setIsAnimationRunning] = useState(true);
+  const timerWidth = `${((timeValue - timer) / timeValue) * 100}%`;
+
+  useEffect(() => {
+    setIsAnimationRunning(standupStatus === "running");
+  }, [standupStatus]);
+
   return (
     <div className={styles.Container}>
+      <div
+        key={currentParticipant.name}
+        className={styles.Loader}
+        style={{
+          width: timerWidth,
+          transition: isAnimationRunning ? "width 1s linear" : "none",
+        }}
+      />
       <div className={styles.PrimaryView}>
         <ParticipantInfo
           standupStatus={standupStatus}
@@ -149,4 +172,4 @@ function ActiveParticipant({
   );
 }
 
-export default ActiveParticipant;
+export default ActiveState;

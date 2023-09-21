@@ -1,5 +1,6 @@
 .pushable {
   position: relative;
+  width: 100%;
   border: none;
   background: transparent;
   padding: 0;

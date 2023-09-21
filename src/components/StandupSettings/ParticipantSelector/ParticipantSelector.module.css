@@ -6,18 +6,14 @@
 
 .Heading {
   display: flex;
+  margin-left: 8px;
+  margin-right: 8px;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.ClearButton {
+.HeadingData {
   color: var(--slate-11);
-  cursor: pointer;
-}
-
-.ClearButton:hover {
-  color: var(--slate-12);
-  text-decoration: underline;
 }
 
 .List {
@@ -103,8 +99,6 @@
 }
 
 .Delete {
-  all: unset;
-  cursor: pointer;
   height: 32px;
   min-width: 32px;
   display: flex;
@@ -126,11 +120,6 @@
 
 .Delete:hover > svg {
   color: var(--red-10);
-}
-
-:focus {
-  outline: -webkit-focus-ring-color auto 2px;
-  outline-offset: 4px;
 }
 
 .PlaceholderButton {

@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./FinishedView.module.css";
+import styles from "./FinishedState.module.css";
 import Button from "../../Button";
 import ConfettiExplosion from "react-confetti-explosion";
 import PartyPopper from "../../../assets/party_popper.png";
 
-function ActiveParticipant({ onRestart }) {
+function FinishedState({ onRestart }) {
   return (
     <div className={styles.Container}>
       <div className={styles.PrimaryView}>
@@ -22,4 +22,4 @@ function ActiveParticipant({ onRestart }) {
   );
 }
 
-export default ActiveParticipant;
+export default FinishedState;
