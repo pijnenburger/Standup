@@ -21,6 +21,9 @@
   gap: 8px;
   align-items: center;
   background-color: white;
+  line-height: 1;
+  color: var(--slate-12);
+  font-size: 1.125rem;
 }
 
 .ListItem:not(:last-child) {
@@ -31,4 +34,17 @@
   text-decoration: line-through;
   color: var(--slate-8);
   background-color: var(--slate-2);
+}
+
+.Heading {
+  display: flex;
+  margin-left: 8px;
+  margin-right: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.HeadingData {
+  color: var(--slate-11);
+  font-weight: 400;
 }

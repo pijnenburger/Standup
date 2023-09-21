@@ -7,9 +7,16 @@ function StandupProgress({ participants }) {
     (participant) => participant.selected && participant.name !== ""
   );
 
+  const participantsLeftCount = selectedParticipants.filter(
+    (participant) => !participant.finished
+  ).length;
+
   return (
     <div className={styles.Container}>
-      <h4>Participants left</h4>
+      <label className={styles.Heading}>
+        <span>Participants left</span>
+        <span className={styles.HeadingData}>{participantsLeftCount}</span>
+      </label>
       <div className={styles.List}>
         {selectedParticipants.map((participant) => (
           <div

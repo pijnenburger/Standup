@@ -31,7 +31,7 @@ function ParticipantInfo({ standupStatus, currentParticipant }) {
 }
 
 function TimerDisplay({ timer }) {
-  const timerColor = timer < 10 ? "var(--red-11)" : "var(--blue-11)";
+  const timerColor = timer < 10 ? "var(--red-10)" : "var(--blue-11)";
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;
   const formattedTime = `${String(minutes).padStart(1, "0")}:${String(
@@ -128,23 +128,8 @@ function ActiveState({
   onRestart,
   timeValue,
 }) {
-  const [isAnimationRunning, setIsAnimationRunning] = useState(true);
-  const timerWidth = `${((timeValue - timer) / timeValue) * 100}%`;
-
-  useEffect(() => {
-    setIsAnimationRunning(standupStatus === "running");
-  }, [standupStatus]);
-
   return (
     <div className={styles.Container}>
-      <div
-        key={currentParticipant.name}
-        className={styles.Loader}
-        style={{
-          width: timerWidth,
-          transition: isAnimationRunning ? "width 1s linear" : "none",
-        }}
-      />
       <div className={styles.PrimaryView}>
         <ParticipantInfo
           standupStatus={standupStatus}
