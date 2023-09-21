@@ -1,0 +1,43 @@
+.InputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Input {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  color: var(--slate-12);
+  font-size: 1.125rem;
+  line-height: 1;
+  width: 100%;
+  border: 1px solid var(--slate-4);
+  padding: 16px 20px;
+  border-radius: 8px;
+  appearance: none;
+  background-image: url("../../../assets/chevron.svg");
+  background-repeat: no-repeat;
+  background-position: right 1rem top 50%;
+}
+
+.Input:hover:not(:disabled) {
+  border: 1px solid var(--slate-5);
+}
+
+.Input:disabled {
+  background-color: transparent;
+  color: var(--slate-10);
+}
+
+.Heading {
+  display: flex;
+  margin-left: 8px;
+  margin-right: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.HeadingData {
+  color: var(--slate-11);
+}

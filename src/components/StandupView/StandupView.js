@@ -1,69 +1,79 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
+import ActiveState from "./ActiveState";
+import FinishedState from "./FinishedState";
+import EmptyState from "./EmptyState";
+import { range } from "../../helpers/utils";
 import styles from "./StandupView.module.css";
-import Button from "../Button";
-import {
-  DoubleArrowRightIcon,
-  PauseIcon,
-  PlayIcon,
-  ResetIcon,
-} from "@radix-ui/react-icons";
+import { motion, AnimatePresence } from "framer-motion";
+
+const expirationDate = new Date();
+expirationDate.setDate(expirationDate.getDate() + 365); // Add one day
 
 function StandupView({
   standupStatus,
-  currentParticipant,
   timer,
-  onPause,
-  onNext,
-  onRestart,
+  timeValue,
+  currentParticipant,
+  nextParticipant,
+  startStandup,
+  restartStandup,
+  togglePause,
+  participantsLeft,
 }) {
-  return (
-    <div className={styles.Container}>
-      <div className={styles.PrimaryView}>
-        <div className={styles.Participant}>
-          {standupStatus === "pause" && (
-            <div className={styles.Pause}>
-              <PauseIcon color="white" width="44" height="44" />
+  const count = Math.min(participantsLeft, 5);
+
+  switch (standupStatus) {
+    case "idle":
+      return <EmptyState onStart={startStandup} />;
+
+    case "running":
+    case "pause":
+      return (
+        <AnimatePresence mode="sync">
+          <div className={styles.Container}>
+            <div className={styles.Stack}>
+              {range(count).map((index) => {
+                return (
+                  <motion.div
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    layout
+                    className={styles.Card}
+                    key={index}
+                    style={{
+                      "--participantsLeft": count,
+                      "--currentIndex": index,
+                    }}
+                  />
+                );
+              })}
             </div>
-          )}
-          <img
-            className={styles.Avatar}
-            width="64"
-            height="64"
-            src={`https://ui-avatars.com/api/?name=${currentParticipant.name}&rounded=true`}
-            alt={currentParticipant.name}
-          />
-          <h4>{currentParticipant.name}</h4>
-        </div>
-        <div className={styles.Timer}>
-          <span>Time remaining</span>
-          <span
-            className={styles.TimerCounter}
-            style={{
-              color: timer < 10 ? "red" : "var(--blue-11)",
-            }}
-          >
-            {timer === 0 ? "Time's up" : timer}
-          </span>
-        </div>
-      </div>
-      <div className={styles.Divider} />
-      <div className={styles.Actions}>
-        <Button variant="secondary" onClick={onRestart}>
-          <ResetIcon width="24" height="24" color="red" />
-        </Button>
-        <Button variant="secondary" onClick={onPause}>
-          {standupStatus === "running" ? (
-            <PauseIcon width="24" height="24" />
-          ) : (
-            <PlayIcon width="24" height="24" />
-          )}{" "}
-        </Button>
-        <Button onClick={onNext}>
-          <DoubleArrowRightIcon width="24" height="24" />
-        </Button>
-      </div>
-    </div>
-  );
+            <motion.div
+              initial={{ scale: 0.92, translateY: 8 }}
+              animate={{ scale: 1, translateY: 0 }}
+              key={currentParticipant.name}
+              layout
+            >
+              <ActiveState
+                standupStatus={standupStatus}
+                timer={timer}
+                currentParticipant={currentParticipant}
+                onNext={nextParticipant}
+                onPause={togglePause}
+                onRestart={restartStandup}
+                timeValue={timeValue}
+              />
+            </motion.div>
+          </div>
+        </AnimatePresence>
+      );
+    case "finished":
+      return <FinishedState onRestart={restartStandup} />;
+    default:
+      return null;
+  }
 }
 
 export default StandupView;

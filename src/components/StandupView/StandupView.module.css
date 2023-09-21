@@ -1,67 +1,34 @@
 .Container {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--slate-4);
-  border-radius: 16px;
-}
-
-.PrimaryView {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.Participant {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  text-align: center;
-}
-
-.Avatar {
+  display: block;
   position: relative;
-  background-color: var(--slate-4);
-  border-radius: 100%;
+  width: auto;
+  margin: 80px auto;
 }
 
-.Pause {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 64px;
-  height: 64px;
+/* Style for the stack */
+.Stack {
   position: absolute;
-  z-index: 10;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.Timer {
-  font-size: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.TimerCounter {
-  font-size: 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.Divider {
-  height: 1px;
-  background-color: var(--slate-4);
-}
-
-.Actions {
-  display: flex;
   width: 100%;
-  justify-content: center;
-  gap: 16px;
-  padding: 16px;
+  height: 80%;
+  bottom: 0;
+}
+
+/* Style for each card */
+.Card {
+  position: absolute;
+  height: 100%;
+  width: calc(100% * var(--scale));
+  border: 1px solid var(--slate-4);
+  background-color: white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  top: calc(8px * var(--index));
+  left: calc((100% - var(--scale) * 100%) / 2);
+  transform-origin: center center;
+}
+
+/* Set scaling factor and index */
+.Card:nth-child(n) {
+  --index: calc(var(--participantsLeft) - var(--currentIndex));
+  --scale: calc(1 - (var(--index)) * 0.08);
 }

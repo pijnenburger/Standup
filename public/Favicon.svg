@@ -12,7 +12,7 @@
     }
     @media (prefers-color-scheme: dark) {
         svg {
-        background-color: #000;
+        background-color: #0033FF;
     }
       path {
         fill: #FFF;
