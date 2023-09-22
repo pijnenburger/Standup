@@ -92,7 +92,25 @@ function StandupPrompts({ currentParticipant }) {
   );
 }
 
-function Actions({ standupStatus, timer, onNext, onRestart, onPause }) {
+function Actions({ standupStatus, onNext, onRestart, onPause }) {
+  // React.useEffect(() => {
+  //   function handleKeyDown(event) {
+  //     console.log(event.code);
+  //     if (event.code === "KeyN") {
+  //       onNext();
+  //     }
+  //     if (event.code === "KeyP") {
+  //       onPause();
+  //     }
+  //   }
+
+  //   window.addEventListener("keydown", handleKeyDown);
+
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, [onNext, onPause]);
+
   return (
     <div className={styles.Actions}>
       {/* Reset button */}
