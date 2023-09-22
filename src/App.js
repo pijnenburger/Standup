@@ -8,14 +8,16 @@ import StandupSettings from "./components/StandupSettings";
 
 const initialTime = 120;
 const initialParticipants = [
-  "Maria",
   "Pablo",
-  "Timon",
-  "Mikel",
   "Franco",
-  "Amin",
+  "Timon",
   "Michiel",
+  "Amin",
+  "Mikel",
   "Favio",
+  "Maria",
+  "Oleksandr",
+  "Srgjan",
   "Rick",
 ].map(generateParticipant);
 
