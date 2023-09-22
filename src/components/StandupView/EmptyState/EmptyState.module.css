@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
-  background-color: var(--slate-2);
+  background-color: white;
   border: 1px solid var(--slate-4);
   border-radius: 16px;
   max-width: 400px;
@@ -14,7 +14,8 @@
 }
 
 .Illustration {
-  max-width: 240px;
+  max-width: 124px;
+  height: auto;
 }
 
 .Content {

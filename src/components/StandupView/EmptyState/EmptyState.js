@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./EmptyState.module.css";
 import Button from "../../Button";
-import { ReactComponent as Illustration } from "../../../assets/empty_state.svg";
+import { ReactComponent as Illustration } from "../../../assets/Logo.svg";
 
 function EmptyState({ onStart }) {
   return (
@@ -11,7 +11,9 @@ function EmptyState({ onStart }) {
         <h3>Your standup companion app</h3>
         <p>Keep track of your randomized standup!</p>
       </div>
-      <Button onClick={onStart}>Start</Button>
+      <Button style={{ width: "auto" }} onClick={onStart}>
+        Start standup
+      </Button>
     </div>
   );
 }
